@@ -39,26 +39,22 @@
         ::-webkit-scrollbar-track { background: #ffe4e6; }
         ::-webkit-scrollbar-thumb { background: #fda4af; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #fb7185; }
-        /* モーダル内の記事本文スタイル */
-        .article-content h2 {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #fecdd3;
-            padding-bottom: 0.5rem;
+        .article-content h2 { font-size: 1.5em; font-weight: bold; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 2px solid #fecdd3; padding-bottom: 0.5rem; }
+        .article-content p { margin-bottom: 1rem; line-height: 1.8; }
+        .article-content a { color: #e11d48; text-decoration: underline; }
+        .hero-text-shadow { text-shadow: 2px 2px 6px rgba(0,0,0,0.4); }
+        /* テキストを特定の行数で省略するためのスタイル */
+        .line-clamp-2 {
+           overflow: hidden;
+           display: -webkit-box;
+           -webkit-box-orient: vertical;
+           -webkit-line-clamp: 2;
         }
-        .article-content p {
-            margin-bottom: 1rem;
-            line-height: 1.8;
-        }
-        .article-content a {
-            color: #e11d48;
-            text-decoration: underline;
-        }
-        /* ヒーローセクションのテキストに影を追加 */
-        .hero-text-shadow {
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+        .line-clamp-3 {
+           overflow: hidden;
+           display: -webkit-box;
+           -webkit-box-orient: vertical;
+           -webkit-line-clamp: 3;
         }
     </style>
 </head>
@@ -73,15 +69,13 @@
                 </div>
                 <nav class="hidden md:flex md:items-center md:space-x-8">
                     <a href="index.html" class="text-gray-600 hover:text-custom-pink-500 transition-colors">ホーム</a>
-                    <a href="#new-articles" class="text-gray-600 hover:text-custom-pink-500 transition-colors">新着記事</a>
-                    <a href="#search" class="text-gray-600 hover:text-custom-pink-500 transition-colors">記事検索</a>
+                    <a href="students.html" class="text-gray-600 hover:text-custom-pink-500 transition-colors">学生向け</a>
+                    <a href="professionals.html" class="text-gray-600 hover:text-custom-pink-500 transition-colors">若手・現役向け</a>
                     <a href="#contact" class="text-gray-600 hover:text-custom-pink-500 transition-colors">お悩み相談</a>
                 </nav>
                 <div class="flex items-center">
                     <button id="mobile-menu-button" class="md:hidden ml-4 p-2 rounded-md text-gray-600 hover:text-custom-pink-500 hover:bg-custom-pink-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-custom-pink-500">
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
                     </button>
                 </div>
             </div>
@@ -90,8 +84,8 @@
         <div id="mobile-menu" class="md:hidden hidden">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-custom-pink-600 hover:bg-custom-pink-100">ホーム</a>
-                <a href="#new-articles" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-custom-pink-600 hover:bg-custom-pink-100">新着記事</a>
-                <a href="#search" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-custom-pink-600 hover:bg-custom-pink-100">記事検索</a>
+                <a href="students.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-custom-pink-600 hover:bg-custom-pink-100">学生向け</a>
+                <a href="professionals.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-custom-pink-600 hover:bg-custom-pink-100">若手・現役向け</a>
                 <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-custom-pink-600 hover:bg-custom-pink-100">お悩み相談</a>
             </div>
         </div>
@@ -106,53 +100,21 @@
             <div class="absolute inset-0 flex flex-col justify-center items-center p-6 text-white">
                 <h1 class="text-3xl md:text-5xl font-bold mb-4 hero-text-shadow">未来の医療を担う、あなたのために。</h1>
                 <p class="max-w-2xl mx-auto hero-text-shadow">看護学生・薬学生から若手医療従事者まで、キャリアと学びに役立つ情報を発信します。</p>
-                <div class="mt-6 flex justify-center space-x-2 flex-wrap">
-                    <span class="bg-white/20 backdrop-blur-sm text-white text-xs sm:text-sm font-medium my-1 px-3 py-1 rounded-full">#看護学生</span>
-                    <span class="bg-white/20 backdrop-blur-sm text-white text-xs sm:text-sm font-medium my-1 px-3 py-1 rounded-full">#薬学生</span>
-                    <span class="bg-white/20 backdrop-blur-sm text-white text-xs sm:text-sm font-medium my-1 px-3 py-1 rounded-full">#国家試験対策</span>
-                    <span class="bg-white/20 backdrop-blur-sm text-white text-xs sm:text-sm font-medium my-1 px-3 py-1 rounded-full">#就職活動</span>
-                </div>
             </div>
         </section>
 
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold mb-6 text-gray-700">おすすめの記事</h2>
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                <div class="md:col-span-7 bg-white rounded-2xl shadow-lg overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-                    <a href="#" onclick="showArticleDetail(1); return false;" class="block relative">
-                        <img src="https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="笑顔の看護師" class="w-full h-48 sm:h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                        <div class="absolute bottom-0 left-0 p-6">
-                            <span class="text-sm bg-custom-pink-500 text-white px-3 py-1 rounded-full">特集</span>
-                            <h3 class="text-xl font-bold mt-2 mb-1 text-white group-hover:text-custom-pink-100">新人ナース必見！最初の1ヶ月を乗り切るための5つの心構え</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="md:col-span-5 space-y-4">
-                    <a href="#" class="flex items-center bg-white p-4 rounded-2xl shadow-lg group transition-all duration-300 hover:shadow-xl hover:bg-custom-pink-50 hover:-translate-y-1">
-                        <img src="https://images.pexels.com/photos/3825586/pexels-photo-3825586.jpeg?auto=compress&cs=tinysrgb&w=600" alt="研究室の学生" class="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg flex-shrink-0">
-                        <div class="ml-4">
-                            <h4 class="font-bold text-gray-800 group-hover:text-custom-pink-600">薬学生のための効率的なCBT対策法</h4>
-                            <p class="text-sm text-gray-500 mt-1 hidden sm:block">先輩たちが実践した、暗記に頼らない学習のコツ。</p>
-                        </div>
-                    </a>
-                    <a href="#" class="flex items-center bg-white p-4 rounded-2xl shadow-lg group transition-all duration-300 hover:shadow-xl hover:bg-custom-pink-50 hover:-translate-y-1">
-                        <img src="https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=600" alt="聴診器" class="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg flex-shrink-0">
-                        <div class="ml-4">
-                            <h4 class="font-bold text-gray-800 group-hover:text-custom-pink-600">実習で役立つ！バイタルサイン測定の基本</h4>
-                            <p class="text-sm text-gray-500 mt-1 hidden sm:block">見落としがちなポイントとアセスメントのコツ。</p>
-                        </div>
-                    </a>
-                    <a href="#" class="flex items-center bg-white p-4 rounded-2xl shadow-lg group transition-all duration-300 hover:shadow-xl hover:bg-custom-pink-50 hover:-translate-y-1">
-                        <img src="https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=600" alt="医療チーム" class="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg flex-shrink-0">
-                        <div class="ml-4">
-                            <h4 class="font-bold text-gray-800 group-hover:text-custom-pink-600">医療現場のコミュニケーション術</h4>
-                            <p class="text-sm text-gray-500 mt-1 hidden sm:block">多職種連携をスムーズにするための会話のヒント。</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
+        <!-- まとめページへのナビゲーション -->
+        <section class="mb-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <a href="students.html" class="block bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 text-center">
+                <h2 class="text-2xl font-bold text-custom-pink-600 mb-2">学生向けの記事</h2>
+                <p class="text-gray-600">実習や国試対策、就職活動に役立つ情報はこちら</p>
+            </a>
+            <a href="professionals.html" class="block bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 text-center">
+                <h2 class="text-2xl font-bold text-custom-pink-600 mb-2">若手・現役向けの記事</h2>
+                <p class="text-gray-600">現場スキルやキャリアアップに関する情報はこちら</p>
+            </a>
         </section>
+
         <section id="search" class="mb-12 bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-custom-pink-100">
             <h2 class="text-2xl font-bold mb-4 text-center text-gray-700">記事を検索する</h2>
             <div class="max-w-xl mx-auto">
@@ -224,7 +186,7 @@
                     <p class="text-sm text-gray-500 mt-1">© 2024 Med-Note. All Rights Reserved.</p>
                 </div>
                 <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6">
-                    <a href="article_submission.html" class="text-gray-500 hover:text-custom-pink-500">記事投稿ページへ</a>
+                    <a href="login.html" class="text-gray-500 hover:text-custom-pink-500">記事投稿ページへ</a>
                     <a href="https://sanwa-medix.com/" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-custom-pink-500">運営会社</a>
                     <a href="terms.html" class="text-gray-500 hover:text-custom-pink-500">利用規約</a>
                 </div>
@@ -249,20 +211,17 @@
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
 
-        const DUMMY_ARTICLES = [
-            { id: 1, title: "【国試対策】頻出疾患TOP10とそのポイント", category: "看護", date: "2024.08.19", author: "山田 花子", summary: "看護師国家試験で毎年問われる重要疾患をピックアップ。覚えるべきポイントを簡潔にまとめました。", content: "本文１：ここに記事の全文が入ります。\n\n国試対策は早期から始めることが重要です。特に頻出とされる疾患群は、病態生理から治療、看護まで一連の流れで理解しておく必要があります。", imageUrl: "https://images.pexels.com/photos/3768131/pexels-photo-3768131.jpeg?auto=compress&cs=tinysrgb&w=600" },
-            { id: 2, title: "実務実習を乗り切る！薬局でのコミュニケーション術", category: "薬剤", date: "2024.08.18", author: "鈴木 太郎", summary: "患者さんや薬剤師の先輩との円滑なコミュニケーションのコツを、具体的な場面を交えて紹介します。", content: "本文２：薬局実習では、専門知識だけでなくコミュニケーション能力も問われます。\n\n患者さんへの服薬指導はもちろん、指導薬剤師や他のスタッフとの連携も重要です。", imageUrl: "https://images.pexels.com/photos/7659564/pexels-photo-7659564.jpeg?auto=compress&cs=tinysrgb&w=600" },
-            { id: 3, title: "現役ナースが語る！夜勤の持ち物リスト決定版", category: "コラム", date: "2024.08.17", author: "高橋 さくら", summary: "これがあれば安心！快適に夜勤を過ごすための必須アイテムから便利グッズまで一挙公開。", content: "本文３：夜勤は体力的にも精神的にも大変ですが、準備をしっかりすることで負担を軽減できます。\n\n仮眠グッズや軽食など、自分に合ったアイテムを見つけましょう。", imageUrl: "https://images.pexels.com/photos/3259624/pexels-photo-3259624.jpeg?auto=compress&cs=tinysrgb&w=600" },
-            { id: 4, title: "処方箋の読み方、ゼロから学ぶ監査の基本", category: "薬剤", date: "2024.08.16", author: "佐藤 健太", summary: "新人薬剤師がつまずきやすい処方箋監査のポイントを、基礎から丁寧に解説します。", content: "本文４：処方箋監査は薬剤師の重要な業務の一つです。記載内容に不備がないか、相互作用は問題ないかなど、多角的な視点での確認が求められます。", imageUrl: "https://images.pexels.com/photos/4056462/pexels-photo-4056462.jpeg?auto=compress&cs=tinysrgb&w=600" },
-            { id: 5, title: "領域別実習、記録物を効率的に書くテクニック", category: "看護", date: "2024.08.15", author: "伊藤 美咲", summary: "時間がかかりがちな実習記録。要点を押さえて、素早く的確に書くための方法を伝授します。", content: "本文５：実習記録は、ただ漫然と書くのではなく、アセスメントの根拠を明確にしながら記述することが大切です。SOAP形式を正しく理解し、活用しましょう。", imageUrl: "https://images.pexels.com/photos/48604/pexels-photo-48604.jpeg?auto=compress&cs=tinysrgb&w=600" },
-            { id: 6, title: "医療従事者のためのセルフケアとストレス管理", category: "コラム", date: "2024.08.14", author: "渡辺 直樹", summary: "心身の健康を保つことは良いケアの第一歩。今日からできる簡単なセルフケア方法をご紹介。", content: "本文６：人の命を預かる医療現場では、知らず知らずのうちにストレスが溜まりがちです。自分なりのリフレッシュ方法を見つけ、オンとオフを上手に切り替えることが長く働き続ける秘訣です。", imageUrl: "https://images.pexels.com/photos/3771089/pexels-photo-3771089.jpeg?auto=compress&cs=tinysrgb&w=600" }
+        const INITIAL_ARTICLES = [
+            { id: 1661234567003, title: "【キャリアアップ】医療従事者のための上手な転職活動の進め方", category: ["転職・キャリアアップ", "おすすめ職場・求人特集"], date: "2025.08.21", author: "キャリアコンサルタント", summary: "キャリアアップを目指すための転職活動、何から始めるべきか迷っていませんか？自己分析から求人情報の探し方、履歴書の書き方、面接対策まで、成功に導くステップを解説します。", content: "医療業界でのキャリアアップや労働環境の改善を目指して転職を考える際、計画的な準備が成功の鍵を握ります。\n\nまず最初に行うべきは「自己分析」です。これまでの経験や習得したスキル、得意なこと、そして今後のキャリアで何を成し遂げたいのか、どのような環境で働きたいのかを具体的に書き出してみましょう。これにより、転職の軸が明確になり、求人を探す際のミスマッチを防ぐことができます。\n\n次に行うのが「情報収集」です。医療専門の転職サイトやエージェントを活用するのが効率的です。非公開求人を紹介してもらえたり、キャリア相談に乗ってもらえたりするメリットがあります。また、興味のある医療機関のウェブサイトを直接チェックしたり、学会やセミナーで人脈を広げたりするのも有効な手段です。\n\nそして「応募書類の準備」です。履歴書や職務経歴書は、あなたの第一印象を決める重要なツールです。特に職務経歴書では、これまでの業務内容をただ羅列するのではなく、どのような役割を果たし、どのような成果を上げたのかを具体的なエピソードを交えて記述することが重要です。「〇〇の業務改善を提案し、時間外労働を月平均〇時間削減した」など、数字を用いて実績を示すと説得力が増します。\n\n最後に「面接対策」です。よく聞かれる質問（志望動機、自己PR、退職理由など）に対する回答を準備しておくことはもちろん、応募先の医療機関の理念や特徴を深く理解し、「なぜここで働きたいのか」を自分の言葉で熱意をもって伝えることが大切です。逆質問の時間も、意欲を示す絶好の機会です。事前に質問をいくつか用意しておきましょう。\n\nこれらのステップを一つひとつ丁寧に進めることで、納得のいく転職を実現できる可能性が格段に高まります。", imageUrl: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600" },
+            { id: 1661234567002, title: "【若手向け】インシデントレポートの上手な書き方と活かし方", category: ["若手向け", "現場スキル・実務ノウハウ"], date: "2025.08.20", author: "医療安全管理者", summary: "インシデントレポートは「始末書」ではありません。再発防止に繋げるための客観的な事実記載のポイント、原因分析の視点、そしてチームで学びを共有する方法を解説します。", content: "インシデントレポートと聞くと、ミスを報告する「始末書」のようなネガティブなイメージを持つ方もいるかもしれません。しかし、本来の目的は個人の責任を追及することではなく、組織全体で情報を共有し、同様の事態の再発を防ぐことにあります。\n\n質の高いレポートを書くための最大のポイントは、「客観的な事実」を「5W1H」に沿って記述することです。いつ（When）、どこで（Where）、誰が（Who）、何を（What）、なぜ（Why）、どのように（How）起こったのかを、感情や憶測を交えずに淡々と記録します。「〇〇だと思った」「たぶん〇〇だろう」といった表現は避け、「〇時〇分、AさんがB室でCを実施した際、Dという事象が発生した」というように具体的に記述しましょう。\n\n事実を記述した後は、「原因分析」を行います。なぜそのインシデントが起きたのかを深掘りするのです。ここで役立つのが「なぜなぜ分析」です。一つの事象に対して「なぜ？」を5回繰り返すことで、表面的な原因だけでなく、背景にあるシステムや環境の問題といった根本原因にたどり着くことができます。例えば、「薬剤の投与量を間違えた」→「なぜ？」→「確認を怠った」→「なぜ？」→「業務が立て込んでいて焦っていた」→「なぜ？」→「その時間帯の人員配置が少なかった」というように掘り下げていきます。\n\n最後に重要なのが「改善策の提案」と「共有」です。根本原因に対して、「どのような対策を講じれば再発を防げるか」を具体的に考えます。そして、そのレポートを個人のものとせず、カンファレンスなどでチーム全体に共有し、学びを組織の財産とすることが、医療の質を向上させる上で不可欠です。インシデントレポートは、より良い医療を提供するための貴重な学習ツールであると捉え、積極的に活用していきましょう。", imageUrl: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=600" },
+            { id: 1661234567001, title: "【学生向け】効率的な実習記録の書き方とポイント", category: ["学生向け", "現場スキル・実務ノウハウ"], date: "2025.08.19", author: "編集部", summary: "時間がかかりがちな実習記録。評価される記録を効率的に書くための「SOAP形式」の基本から、情報収集のコツ、アセスメントの視点までを具体的に解説します。", content: "臨床実習において、多くの学生が頭を悩ませるのが「実習記録」です。しかし、ポイントを押さえれば、効率的に、かつ指導者から評価される記録を作成することができます。\n\nまず基本となるのが、記録の構成です。一般的に用いられる「SOAP形式」を正しく理解しましょう。\n・S (Subjective)：主観的データ。患者さん自身の言葉や訴えをそのまま記述します。\n・O (Objective)：客観的データ。バイタルサイン、検査データ、観察した事実など、誰が見ても同じように捉えられる情報を記述します。\n・A (Assessment)：アセスメント（評価）。SとOの情報をもとに、患者さんの状態を分析・評価します。ここで看護上の問題点が明確になります。\n・P (Plan)：計画。アセスメントで明確になった問題点に対する具体的なケアプラン（観察項目、ケア項目、教育項目）を立案します。\n\n質の高い記録を書くためには、日々の「情報収集」が欠かせません。患者さんとの会話やケアの実践からはもちろん、カルテや他職種の記録からも積極的に情報を集めましょう。その際、ただ情報を集めるだけでなく、「なぜこの情報が必要なのか」「この情報から何が言えるのか」を常に考える癖をつけることが、アセスメント能力の向上に繋がります。\n\n特にアセスメントでは、収集した情報を関連付ける視点が重要です。例えば、「微熱がある(O)」という情報と「少しだるい(S)」という訴えを結びつけ、「感染兆候の可能性がある」と評価する、といった具合です。正常・異常の判断だけでなく、なぜその状態にあるのか、今後どのようなリスクがあるのかまで踏み込んで考察できると、より深い学びにつながります。\n\n最初は難しく感じるかもしれませんが、このプロセスを繰り返すことで、臨床での思考力が着実に身についていきます。指導者からのフィードバックを素直に受け止め、次回の記録に活かしていくことも忘れないでください。", imageUrl: "https://images.pexels.com/photos/1170979/pexels-photo-1170979.jpeg?auto=compress&cs=tinysrgb&w=600" },
         ];
 
         function getArticles() {
             let articles = localStorage.getItem('medNoteArticles');
             if (!articles || JSON.parse(articles).length === 0) {
-                localStorage.setItem('medNoteArticles', JSON.stringify(DUMMY_ARTICLES));
-                return DUMMY_ARTICLES;
+                localStorage.setItem('medNoteArticles', JSON.stringify(INITIAL_ARTICLES));
+                return INITIAL_ARTICLES;
             }
             return JSON.parse(articles);
         }
@@ -272,25 +231,28 @@
 
         function renderArticles(articlesToRender) {
             articlesContainer.innerHTML = '';
-            if (!articlesToRender || articlesToRender.length === 0) {
+            const articlesToShow = articlesToRender.slice(0, 6);
+
+            if (!articlesToShow || articlesToShow.length === 0) {
                 articlesContainer.classList.add('hidden');
                 noResultsDiv.classList.remove('hidden');
             } else {
                 articlesContainer.classList.remove('hidden');
                 noResultsDiv.classList.add('hidden');
-                articlesToRender.forEach(article => {
+                articlesToShow.forEach(article => {
+                    const categoriesHtml = article.category.map(cat => `<span class="bg-custom-pink-100 text-custom-pink-800 px-2 py-0.5 rounded-full text-xs">${cat}</span>`).join(' ');
                     const articleElement = document.createElement('div');
                     articleElement.className = 'bg-white rounded-2xl shadow-lg overflow-hidden group transform hover:-translate-y-1 transition-all duration-300';
                     articleElement.innerHTML = `
                         <a href="#" onclick="showArticleDetail(${article.id}); return false;">
                             <img src="${article.imageUrl}" alt="${article.title}" class="w-full h-48 object-cover group-hover:opacity-90 transition-opacity" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fecdd3/881337?text=Image';">
-                            <div class="p-6">
-                                <div class="flex items-center justify-between text-sm text-gray-500 mb-2">
-                                    <span class="bg-custom-pink-100 text-custom-pink-800 px-2 py-0.5 rounded-full">${article.category}</span>
-                                    <span>${article.date}</span>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex flex-wrap gap-1">${categoriesHtml}</div>
+                                    <span class="text-xs text-gray-500 flex-shrink-0 ml-2">${article.date}</span>
                                 </div>
-                                <h3 class="text-lg font-bold text-gray-800 mb-2 h-14 group-hover:text-custom-pink-600">${article.title}</h3>
-                                <p class="text-sm text-gray-600 h-20 overflow-hidden">${article.summary}</p>
+                                <h3 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-custom-pink-600 line-clamp-2">${article.title}</h3>
+                                <p class="text-sm text-gray-600 line-clamp-3 flex-grow">${article.summary}</p>
                                 <div class="mt-4 text-xs text-gray-500">
                                     <span>by ${article.author}</span>
                                 </div>
@@ -302,7 +264,6 @@
             }
         }
 
-        // --- Modal Control ---
         const modal = document.getElementById('article-modal');
         const modalContent = document.getElementById('modal-content');
         const modalBody = document.getElementById('modal-body');
@@ -314,10 +275,10 @@
             if (!article) return;
 
             const formattedContent = article.content.replace(/\n/g, '<br><br>');
+            const categoriesHtml = article.category.map(cat => `<span class="bg-custom-pink-100 text-custom-pink-800 px-3 py-1 rounded-full text-sm font-medium">${cat}</span>`).join(' ');
+            
             modalBody.innerHTML = `
-                <div class="mb-6">
-                    <span class="bg-custom-pink-100 text-custom-pink-800 px-3 py-1 rounded-full text-sm font-medium">${article.category}</span>
-                </div>
+                <div class="mb-6 flex flex-wrap gap-2">${categoriesHtml}</div>
                 <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">${article.title}</h1>
                 <div class="flex items-center text-sm text-gray-500 mb-6">
                     <span>by ${article.author}</span>
@@ -325,44 +286,34 @@
                     <span>${article.date}</span>
                 </div>
                 <img src="${article.imageUrl}" alt="${article.title}" class="w-full rounded-lg shadow-md mb-8" onerror="this.onerror=null;this.src='https://placehold.co/800x450/fecdd3/881337?text=Image';">
-                <div class="article-content text-gray-700 leading-relaxed">
-                    ${formattedContent}
-                </div>
+                <div class="article-content text-gray-700 leading-relaxed">${formattedContent}</div>
             `;
             
             modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.add('opacity-100');
-                modalContent.classList.remove('scale-95');
-            }, 10);
+            setTimeout(() => { modal.classList.add('opacity-100'); modalContent.classList.remove('scale-95'); }, 10);
             document.body.style.overflow = 'hidden';
         }
 
         function hideArticleDetail() {
             modal.classList.remove('opacity-100');
             modalContent.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.body.style.overflow = '';
-            }, 300);
+            setTimeout(() => { modal.classList.add('hidden'); document.body.style.overflow = ''; }, 300);
         }
 
         modalCloseButton.addEventListener('click', hideArticleDetail);
         modal.addEventListener('click', (event) => { if (event.target === modal) hideArticleDetail(); });
         document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !modal.classList.contains('hidden')) hideArticleDetail(); });
 
-        // --- Search ---
         const searchInput = document.getElementById('search-input');
         const searchButton = document.getElementById('search-button');
         function performSearch() {
             const allArticles = getArticles();
             const searchTerm = searchInput.value.toLowerCase().trim();
-            renderArticles(searchTerm ? allArticles.filter(a => a.title.toLowerCase().includes(searchTerm) || a.summary.toLowerCase().includes(searchTerm) || a.category.toLowerCase().includes(searchTerm)) : allArticles);
+            renderArticles(searchTerm ? allArticles.filter(a => a.title.toLowerCase().includes(searchTerm) || a.summary.toLowerCase().includes(searchTerm) || a.category.some(c => c.toLowerCase().includes(searchTerm))) : allArticles);
         }
         searchButton.addEventListener('click', performSearch);
         searchInput.addEventListener('keyup', (event) => { if (event.key === 'Enter') performSearch(); });
 
-        // --- Contact Form ---
         const contactForm = document.getElementById('contact-form');
         contactForm.addEventListener('submit', e => {
             e.preventDefault();
@@ -384,7 +335,6 @@
             });
         });
 
-        // --- Initial Load ---
         document.addEventListener('DOMContentLoaded', () => {
             renderArticles(getArticles());
         });

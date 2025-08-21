@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>記事投稿 | Med-Note</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                    },
+                    colors: {
+                        'custom-pink': { '50': '#fff1f2', '100': '#ffe4e6', '200': '#fecdd3', '300': '#fda4af', '400': '#fb7185', '500': '#f43f5e', '600': '#e11d48', '700': '#be123c', '800': '#9f1239', '900': '#881337' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-custom-pink-50 font-sans text-gray-800">
+
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="text-2xl font-bold text-custom-pink-600">Med-Note</a>
+                <a href="index.html" class="text-gray-600 hover:text-custom-pink-500 transition-colors">トップページに戻る</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-3xl mx-auto bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-custom-pink-100">
+            <h1 class="text-2xl font-bold text-center text-gray-700 mb-6">記事投稿フォーム</h1>
+            
+            <form id="article-form">
+                <div class="mb-6">
+                    <label for="title" class="block text-gray-700 text-sm font-bold mb-2">記事タイトル</label>
+                    <input type="text" id="title" class="w-full px-4 py-2 text-gray-700 border border-custom-pink-200 rounded-lg focus:outline-none focus:border-custom-pink-400" required>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="category" class="block text-gray-700 text-sm font-bold mb-2">カテゴリ</label>
+                        <select id="category" class="w-full px-4 py-2 text-gray-700 bg-white border border-custom-pink-200 rounded-lg focus:outline-none focus:border-custom-pink-400" required>
+                            <option value="">選択してください</option>
+                            <option value="看護">看護</option>
+                            <option value="薬剤">薬剤</option>
+                            <option value="コラム">コラム</option>
+                            <option value="特集">特集</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="author" class="block text-gray-700 text-sm font-bold mb-2">著者名</label>
+                        <input type="text" id="author" class="w-full px-4 py-2 text-gray-700 border border-custom-pink-200 rounded-lg focus:outline-none focus:border-custom-pink-400" required>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label for="summary" class="block text-gray-700 text-sm font-bold mb-2">記事の概要（一覧ページ用）</label>
+                    <textarea id="summary" rows="3" class="w-full px-4 py-2 text-gray-700 border border-custom-pink-200 rounded-lg focus:outline-none focus:border-custom-pink-400" required placeholder="120字程度で記事の要約を入力してください。"></textarea>
+                </div>
+                <div class="mb-6">
+                    <label for="content" class="block text-gray-700 text-sm font-bold mb-2">本文</label>
+                    <textarea id="content" rows="10" class="w-full px-4 py-2 text-gray-700 border border-custom-pink-200 rounded-lg focus:outline-none focus:border-custom-pink-400" required placeholder="ここに記事の全文を入力してください。"></textarea>
+                </div>
+                <div class="mb-8">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">アイキャッチ画像</label>
+                    <div class="mt-1 flex items-center">
+                        <img id="image-preview" src="https://placehold.co/150x150/fecdd3/881337?text=Preview" class="w-32 h-32 object-cover rounded-md bg-gray-100">
+                        <div class="ml-5">
+                            <label for="image-upload" class="cursor-pointer bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none">
+                                <span>ファイルを選択</span>
+                                <input id="image-upload" name="image-upload" type="file" class="sr-only" accept="image/*">
+                            </label>
+                            <p class="text-xs text-gray-500 mt-2">PNG, JPG, GIFなど</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="w-full sm:w-auto bg-custom-pink-500 text-white font-bold py-3 px-12 rounded-full hover:bg-custom-pink-600 transition-transform transform hover:scale-105">
+                        記事を投稿する
+                    </button>
+                </div>
+            </form>
+            <div id="success-message" class="hidden mt-6 p-4 text-center text-green-800 bg-green-100 rounded-lg">
+                記事が正常に投稿されました！トップページで確認してください。
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        const form = document.getElementById('article-form');
+        const successMessage = document.getElementById('success-message');
+        const imageUpload = document.getElementById('image-upload');
+        const imagePreview = document.getElementById('image-preview');
+        let imageDataUrl = '';
+
+        imageUpload.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imageDataUrl = e.target.result;
+                    imagePreview.src = imageDataUrl;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const existingArticles = JSON.parse(localStorage.getItem('medNoteArticles') || '[]');
+            const newArticle = {
+                id: Date.now(),
+                title: document.getElementById('title').value,
+                category: document.getElementById('category').value,
+                author: document.getElementById('author').value,
+                summary: document.getElementById('summary').value,
+                content: document.getElementById('content').value, // 本文を追加
+                date: new Date().toLocaleDateString('ja-JP').replace(/\//g, '.'),
+                imageUrl: imageDataUrl || `https://placehold.co/600x400/fecdd3/881337?text=${encodeURIComponent(document.getElementById('title').value)}`
+            };
+
+            const updatedArticles = [newArticle, ...existingArticles];
+            localStorage.setItem('medNoteArticles', JSON.stringify(updatedArticles));
+            
+            successMessage.classList.remove('hidden');
+            form.reset();
+            imagePreview.src = 'https://placehold.co/150x150/fecdd3/881337?text=Preview';
+            imageDataUrl = '';
+
+            setTimeout(() => { successMessage.classList.add('hidden'); }, 3000);
+        });
+    </script>
+</body>
+</html>

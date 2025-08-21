@@ -43,21 +43,18 @@
                     <label for="title" class="block text-gray-700 text-sm font-bold mb-2">記事タイトル</label>
                     <input type="text" id="title" class="w-full px-4 py-2 text-gray-700 border border-custom-pink-200 rounded-lg focus:outline-none focus:border-custom-pink-400" required>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label for="category" class="block text-gray-700 text-sm font-bold mb-2">カテゴリ</label>
-                        <select id="category" class="w-full px-4 py-2 text-gray-700 bg-white border border-custom-pink-200 rounded-lg focus:outline-none focus:border-custom-pink-400" required>
-                            <option value="">選択してください</option>
-                            <option value="看護">看護</option>
-                            <option value="薬剤">薬剤</option>
-                            <option value="コラム">コラム</option>
-                            <option value="特集">特集</option>
-                        </select>
+                
+                <!-- Category Selection -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">カテゴリ（最大3つまで）</label>
+                    <div id="category-container" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <!-- Categories will be inserted here by JS -->
                     </div>
-                    <div>
-                        <label for="author" class="block text-gray-700 text-sm font-bold mb-2">著者名</label>
-                        <input type="text" id="author" class="w-full px-4 py-2 text-gray-700 border border-custom-pink-200 rounded-lg focus:outline-none focus:border-custom-pink-400" required>
-                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label for="author" class="block text-gray-700 text-sm font-bold mb-2">著者名</label>
+                    <input type="text" id="author" class="w-full px-4 py-2 text-gray-700 border border-custom-pink-200 rounded-lg focus:outline-none focus:border-custom-pink-400" required>
                 </div>
                 <div class="mb-6">
                     <label for="summary" class="block text-gray-700 text-sm font-bold mb-2">記事の概要（一覧ページ用）</label>
@@ -93,6 +90,34 @@
     </main>
     
     <script>
+        const CATEGORIES = [
+            "学生向け", "若手向け", "転職・キャリアアップ", "スキマバイト・副業", "現場スキル・実務ノウハウ",
+            "医療制度・業界ニュース", "ワークライフバランス・ライフスタイル", "メンタルヘルス・セルフケア",
+            "現役者インタビュー・体験談", "おすすめ職場・求人特集"
+        ];
+
+        const categoryContainer = document.getElementById('category-container');
+        CATEGORIES.forEach(category => {
+            const div = document.createElement('div');
+            div.className = 'flex items-center';
+            div.innerHTML = `
+                <input type="checkbox" id="cat-${category}" name="category" value="${category}" class="h-4 w-4 text-custom-pink-600 border-gray-300 rounded focus:ring-custom-pink-500">
+                <label for="cat-${category}" class="ml-2 block text-sm text-gray-900">${category}</label>
+            `;
+            categoryContainer.appendChild(div);
+        });
+        
+        // Limit checkbox selection to 3
+        const checkboxes = document.querySelectorAll('input[name="category"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const checkedCount = document.querySelectorAll('input[name="category"]:checked').length;
+                if (checkedCount > 3) {
+                    checkbox.checked = false;
+                }
+            });
+        });
+
         const form = document.getElementById('article-form');
         const successMessage = document.getElementById('success-message');
         const imageUpload = document.getElementById('image-upload');
@@ -103,10 +128,7 @@
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = (e) => {
-                    imageDataUrl = e.target.result;
-                    imagePreview.src = imageDataUrl;
-                };
+                reader.onload = (e) => { imageDataUrl = e.target.result; imagePreview.src = imageDataUrl; };
                 reader.readAsDataURL(file);
             }
         });
@@ -114,14 +136,20 @@
         form.addEventListener('submit', function(event) {
             event.preventDefault();
             
+            const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(cb => cb.value);
+            if (selectedCategories.length === 0) {
+                alert('カテゴリを1つ以上選択してください。');
+                return;
+            }
+
             const existingArticles = JSON.parse(localStorage.getItem('medNoteArticles') || '[]');
             const newArticle = {
                 id: Date.now(),
                 title: document.getElementById('title').value,
-                category: document.getElementById('category').value,
+                category: selectedCategories,
                 author: document.getElementById('author').value,
                 summary: document.getElementById('summary').value,
-                content: document.getElementById('content').value, // 本文を追加
+                content: document.getElementById('content').value,
                 date: new Date().toLocaleDateString('ja-JP').replace(/\//g, '.'),
                 imageUrl: imageDataUrl || `https://placehold.co/600x400/fecdd3/881337?text=${encodeURIComponent(document.getElementById('title').value)}`
             };
